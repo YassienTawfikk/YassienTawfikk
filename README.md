@@ -48,29 +48,7 @@ I'm a **Biomedical Engineer** driven by a passion for blending **technology** an
 ## 📊 Most Used Languages
 
 <div align='center'>
-
+  
   ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=YassienTawfikk&layout=compact&theme=radical)
-
-</div>
-
----
-
-## 🔭 Current Projects
-
-- **🛠️ Realtime Digital Filter Design Application**
-  An interactive application for designing digital filters via **z-plane manipulation**. Features include:  
-  - Real-time filter application  
-  - C code generation  
-  - Built-in library of classic digital filters  
-
-- **🎥 Medical Device Training and Maintenance in Blender:**  
-  Creating a simulation in Blender for training on a **spectrophotometer** in a laboratory.<br>
-  *(Project for my Computer Graphics University Course)*  
-
----
-
-<div align='center'>
-
-⭐️ Thank you for visiting my GitHub profile! ⭐️
-
+  
 </div>
