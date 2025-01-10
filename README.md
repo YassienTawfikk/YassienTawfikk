@@ -1,6 +1,6 @@
 <div align='center'>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=Hello+%2C+I'm+Yassien+Tawfik;Innovating+Healthcare+Through+Tech)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=800&color=6dbac6&center=true&vCenter=true&width=800&lines=Hi,+I'm+Yassien+Tawfik!;Blending+Technology+with+Healthcare;Innovating+for+a+Healthier+Future)](https://git.io/typing-svg)
 
 <img src="https://user-images.githubusercontent.com/74038190/212749168-86d6c7ab-98da-409b-998f-c5b74721badd.gif" width="500">
 
@@ -57,14 +57,14 @@ I'm a **Biomedical Engineer** driven by a passion for blending **technology** an
 
 ## 🔭 Current Projects
 
-- **🛠️ Realtime Digital Filter Design Application**  
+- **🛠️ Realtime Digital Filter Design Application**
   An interactive application for designing digital filters via **z-plane manipulation**. Features include:  
   - Real-time filter application  
   - C code generation  
   - Built-in library of classic digital filters  
 
 - **🎥 Medical Device Training and Maintenance in Blender:**  
-  Creating a simulation in Blender for training on a **spectrophotometer** in a laboratory.  
+  Creating a simulation in Blender for training on a **spectrophotometer** in a laboratory.<br>
   *(Project for my Computer Graphics University Course)*  
 
 ---
