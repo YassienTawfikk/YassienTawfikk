@@ -42,13 +42,3 @@ I'm a **Biomedical Engineer** driven by a passion for blending **technology** an
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" width="40" height="40" />
 
 </div>
-
----
-
-## 📊 Most Used Languages
-
-<div align='center'>
-  
-  ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=YassienTawfikk&layout=compact&theme=radical)
-  
-</div>
