@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yassien Tawfik | Link Hub</title>
+    <meta name="theme-color" content="#121212"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- EmailJS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>emailjs.init('A03Gz-zzs0j09uVz3');</script>
+    <style>
+        :root {
+            --bg: #121212;
+            --bg-deep: #0d0d0d;
+            --text: #e0e0e0;
+            --accent: #9a9a9a;
+            --card: #1e1e1e;
+            --border: #2c2c2c;
+            --highlight: #cfcfcf;
+            --badge: #2b2b2b
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            background: radial-gradient(circle at top left, var(--bg), var(--bg-deep));
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.5
+        }
+
+        .container {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .6);
+            max-width: 640px;
+            width: 100%
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 10px;
+            margin-bottom: 1.25rem
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 5vw, 2.25rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: .5rem
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: .95rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem
+        }
+
+        .link-list {
+            list-style: none
+        }
+
+        .link-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .95rem 0;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden
+        }
+
+        .link-item:last-child {
+            border-bottom: none
+        }
+
+        .link-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--highlight);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform .35s ease
+        }
+
+        .link-item:hover::before, .link-item:focus-within::before {
+            transform: scaleY(1)
+        }
+
+        .label {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-size: 1.05rem;
+            color: var(--accent);
+            text-transform: capitalize;
+            transition: color .35s;
+            margin-left: 20px
+        }
+
+        .label i {
+            font-size: 1.25rem
+        }
+
+        .action-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: .45rem 1.2rem;
+            border-radius: 6px;
+            font-size: .85rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            cursor: pointer;
+            transition: all .35s
+        }
+
+        .action-btn i {
+            font-size: .9rem
+        }
+
+        .link-item:hover .label, .link-item:focus-within .label {
+            color: var(--text)
+        }
+
+        .link-item:hover .action-btn, .link-item:focus-within .action-btn {
+            background: var(--highlight);
+            color: var(--bg);
+            border-color: var(--highlight)
+        }
+
+        .action-btn:focus-visible {
+            outline: 2px solid var(--highlight);
+            outline-offset: 2px
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 1.75rem
+        }
+
+        .clock {
+            display: inline-block;
+            background: var(--badge);
+            padding: .4rem .8rem;
+            border-radius: 6px;
+            font-size: .85rem;
+            color: var(--accent)
+        }
+
+        /* contact form */
+        .contact {
+            margin-top: 2rem;
+            text-align: center
+        }
+
+        .contact p {
+            margin-bottom: .75rem;
+            color: var(--accent);
+            font-size: .9rem
+        }
+
+        .contact-form {
+            display: flex;
+            gap: .5rem;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        .email-input {
+            flex: 1 1 220px;
+            max-width: 100%;
+            padding: .6rem .8rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-deep);
+            color: var(--text);
+            font-size: .9rem
+        }
+
+        .email-input::placeholder {
+            color: var(--accent)
+        }
+
+        .send-btn {
+            padding: .6rem 1.2rem;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: all .35s;
+            display: flex;
+            align-items: center;
+            gap: .4rem
+        }
+
+        .send-btn:hover, .send-btn:focus-visible {
+            background: var(--highlight);
+            color: var(--bg);
+            border-color: var(--highlight)
+        }
+
+        @media (max-width: 480px) {
+            .label {
+                font-size: .95rem
+            }
+
+            .action-btn {
+                padding: .45rem 1rem
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="container" role="main">
+    <img src="src/images/Profile-Image.jpeg" alt="Portrait of Yassien Tawfik" class="profile-image" loading="lazy">
+    <h1>Yassien Tawfik</h1>
+    <p class="tagline">Biomedical engineering student leveraging code & hardware to advance healthcare.</p>
+
+    <nav aria-label="Key links">
+        <ul class="link-list">
+            <li class="link-item"><span class="label"><i class="fab fa-github"></i>GitHub</span><a class="action-btn"
+                                                                                                   href="https://github.com/YassienTawfikk"
+                                                                                                   target="_blank" rel="noopener"><i
+                    class="fas fa-arrow-up-right-from-square"></i>Visit</a></li>
+            <li class="link-item"><span class="label"><i class="fab fa-linkedin"></i>LinkedIn</span><a class="action-btn"
+                                                                                                       href="https://linkedin.com/in/yassien-tawfik"
+                                                                                                       target="_blank" rel="noopener"><i
+                    class="fas fa-arrow-up-right-from-square"></i>Visit</a></li>
+            <li class="link-item"><span class="label"><i class="fas fa-code"></i>LeetCode</span><a class="action-btn"
+                                                                                                   href="https://leetcode.com/u/YassienTawfik/"
+                                                                                                   target="_blank" rel="noopener"><i
+                    class="fas fa-arrow-up-right-from-square"></i>Visit</a></li>
+            <li class="link-item"><span class="label"><i class="fas fa-cogs"></i>Tinkercad</span><a class="action-btn"
+                                                                                                    href="https://www.tinkercad.com/users/2vAATFFVET6?type=circuits"
+                                                                                                    target="_blank" rel="noopener"><i
+                    class="fas fa-arrow-up-right-from-square"></i>Visit</a></li>
+            <li class="link-item"><span class="label"><i class="fas fa-file-pdf"></i>CV (PDF)</span><a class="action-btn"
+                                                                                                       href="src/docs/YassienTawfik.pdf" download><i
+                    class="fas fa-download"></i>Download</a></li>
+            <li class="link-item"><span class="label"><i class="fas fa-envelope"></i>Email</span>
+                <button class="action-btn copy-btn" data-copy="Yassien.m.m.tawfik@gmail.com"><i class="fas fa-copy"></i>Copy</button>
+            </li>
+            <li class="link-item"><span class="label"><i class="fas fa-phone"></i>Phone</span>
+                <button class="action-btn copy-btn" data-copy="+201096835548"><i class="fas fa-copy"></i>Copy</button>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="contact" aria-label="Leave your email">
+        <p>Want me to reach out? Drop your email:</p>
+        <form id="contact-form" class="contact-form">
+            <input type="email" class="email-input" name="from_email" placeholder="you@example.com" required>
+            <button type="submit" class="send-btn"><i class="fas fa-paper-plane"></i>Send</button>
+        </form>
+    </section>
+
+    <footer class="footer"><span id="clock" class="clock" aria-label="Local time"></span></footer>
+</main>
+
+<script>
+    // --- Copy buttons & toast ---
+    document.querySelectorAll('.copy-btn').forEach(btn => btn.addEventListener('click', async () => {
+        const text = btn.dataset.copy;
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast(`Copied: ${text}`);
+        } catch {
+            showToast('Copy failed');
+        }
+    }));
+
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.textContent = msg;
+        Object.assign(toast.style, {
+            position: 'fixed',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            background: 'var(--highlight)',
+            color: 'var(--bg)',
+            padding: '0.6rem 1rem',
+            borderRadius: '6px',
+            fontSize: '0.85rem',
+            zIndex: '1000',
+            opacity: '0',
+            transition: 'opacity .3s'
+        });
+        document.body.appendChild(toast);
+        requestAnimationFrame(() => toast.style.opacity = '1');
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.addEventListener('transitionend', () => toast.remove());
+        }, 2000);
+    }
+
+    // --- EmailJS contact form ---
+    document.getElementById('contact-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const email = e.target.from_email.value.trim();
+        if (!email) return;
+
+        try {
+            // 1) notify you
+            await emailjs.send('service_2k9xyz', 'template_d4ryemm', {from_email: email});
+
+            // 2) auto-reply to visitor
+            await emailjs.send('service_2k9xyz', 'template_bir13y8', {
+                from_email: email,
+                to_email: email   // <- new
+            });
+
+            showToast("Thanks! I'll reach out soon.");
+            e.target.reset();
+        } catch (err) {
+            showToast('Error — please try again.');
+            console.error(err);
+        }
+    });
+
+    // --- Cairo local time badge ---
+    function updateClock() {
+        const offset = 2;
+        const nowUTC = new Date(Date.now() + new Date().getTimezoneOffset() * 60000);
+        const cairo = new Date(nowUTC.getTime() + offset * 3600000);
+        const hh = cairo.getHours().toString().padStart(2, '0');
+        const mm = cairo.getMinutes().toString().padStart(2, '0');
+        document.getElementById('clock').textContent = `Cairo ${hh}:${mm}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 60000);
+</script>
+</body>
+</html>
