@@ -286,6 +286,14 @@
                                                                                                     href="https://www.tinkercad.com/users/2vAATFFVET6?type=circuits"
                                                                                                     target="_blank" rel="noopener"><i
                     class="fas fa-arrow-up-right-from-square"></i>Visit</a></li>
+            <li class="link-item">
+                <span class="label"><i class="fab fa-google-drive"></i>Certificates</span>
+                <a class="action-btn"
+                   href="https://drive.google.com/drive/folders/19lFNYNXSNCXMfYf2BHXEGIgQwWJrDKKy"
+                   target="_blank" rel="noopener">
+                    <i class="fas fa-arrow-up-right-from-square"></i>Visit
+                </a>
+            </li>
             <li class="link-item"><span class="label"><i class="fas fa-file-pdf"></i>CV (PDF)</span><a class="action-btn"
                                                                                                        href="static/docs/YassienTawfik.pdf"
                                                                                                        download><i
@@ -378,7 +386,7 @@
         const cairo = new Date(nowUTC.getTime() + offset * 3600000);
         const hh = cairo.getHours().toString().padStart(2, '0');
         const mm = cairo.getMinutes().toString().padStart(2, '0');
-        document.getElementById('clock').textContent = `Cairo ${hh}:${mm}`;
+        document.getElementById('clock').textContent = `Cairo - ${hh}:${mm}`;
     }
 
     updateClock();
