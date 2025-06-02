@@ -65,11 +65,14 @@
             min-height: 100vh;
             padding: 2rem;
             line-height: 1.5;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            cursor: default;
         }
+
+        body::selection {
+            background-color: var(--accent);
+            color: var(--bg-deep);
+        }
+
 
         .container {
             background: var(--card);
@@ -273,7 +276,7 @@
 <main class="container" role="main">
     <img src="static/images/Profile-Image.jpeg" alt="Portrait of Yassien Tawfik" class="profile-image" loading="lazy">
     <h1>Yassien Tawfik</h1>
-    <p class="tagline">Biomedical & Software Engineer crafting digital solutions for smarter patient care.</p>
+    <p class="tagline">Software Engineer with a biomedical edge, building tools for data-driven healthcare.</p>
 
     <nav aria-label="Key links">
         <ul class="link-list">
@@ -302,7 +305,7 @@
                 </a>
             </li>
             <li class="link-item"><span class="label"><i class="fas fa-file-pdf"></i>CV (PDF)</span><a class="action-btn"
-                                                                                                       href="static/docs/YassienTawfik.pdf"
+                                                                                                       href="static/docs/Yassien%20Tawfik.pdf"
                                                                                                        download><i
                     class="fas fa-download"></i>Download</a></li>
             <li class="link-item"><span class="label"><i class="fas fa-envelope"></i>Email</span>
