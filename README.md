@@ -1,44 +1,43 @@
-<div align='center'>
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=800&color=6dbac6&center=true&vCenter=true&width=800&lines=Hi,+I'm+Yassien+Tawfik!;Blending+Technology+with+Healthcare;Innovating+for+a+Healthier+Future)](https://git.io/typing-svg)
-
-<img src="https://user-images.githubusercontent.com/74038190/212749168-86d6c7ab-98da-409b-998f-c5b74721badd.gif" width="500">
-
-</div>
-
----
-
-## 👨‍💻 About Me
-
-I'm a **Biomedical Engineer** driven by a passion for blending **technology** and **innovation** to transform healthcare. I thrive on exploring **emerging technologies** and continuously honing my skills to create **impactful solutions** in the medical field.
-
----
-
 <div align="center">
 
-### 🌟 Languages
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" height="40" />
+<a href="https://git.io/typing-svg">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=5000&pause=3000&color=6dbac6&center=true&vCenter=true&width=800&lines=Hi,+I'm+Yassien+Tawfik!;Software+Engineer+with+expertise+in+AI+and+Embedded+Systems;Grounded+in+Biomedical+Engineering.">
+</a>
 
-### ⚡ Frameworks
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/qt/qt-original.svg" width="40" height="40" />
-
-### 🗄️ Databases
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="40" height="40" />
-
-### 🛠️ Tools & IDEs
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webstorm/webstorm-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xcode/xcode-original.svg" width="40" height="40" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" width="40" height="40" />
+<img src="https://user-images.githubusercontent.com/74038190/212749168-86d6c7ab-98da-409b-998f-c5b74721badd.gif" width="400">
 
 </div>
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/yassien-tawfik" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-Yassien%20Tawfik-0077B5?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
+  <a href="https://yassien-tawfik-linkhub.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Link%20Tree-Link%20in%20Bio-111111?style=flat" alt="Contact Hub">
+  </a>
+</p>
+
+
+---
+
+### Skills
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://skillicons.dev/icons?i=py,c,cpp,java,html,css,js&perline=7" />
+    </td>
+    <td align="center">
+      <img src="https://skillicons.dev/icons?i=tensorflow,pytorch,opencv,sklearn,flask,qt&perline=6" />
+    </td>
+    <td align="center">
+      <img src="https://skillicons.dev/icons?i=vscode,pycharm,webstorm,clion,arduino,blender&perline=6" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Languages</b></td>
+    <td align="center"><b>Frameworks</b></td>
+    <td align="center"><b>Tools</b></td>
+  </tr>
+</table>
+
