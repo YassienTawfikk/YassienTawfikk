@@ -1,0 +1,30 @@
+{
+  "Name": "Yassien Tawfik",
+  "tagline": "Software Engineer with a biomedical edge, building tools for data-driven healthcare.",
+  "links": {
+    "CV (PDF)": {
+      "href": "static/docs/Yassien%20Tawfik.pdf"
+    },
+    "GitHub": {
+      "href": "https://github.com/YassienTawfikk"
+    },
+    "LinkedIn": {
+      "href": "https://linkedin.com/in/yassien-tawfik"
+    },
+    "LeetCode": {
+      "href": "https://leetcode.com/u/YassienTawfik/"
+    },
+    "Tinkercad": {
+      "href": "https://www.tinkercad.com/users/2vAATFFVET6?type=circuits"
+    },
+    "Certificates": {
+      "href": "https://drive.google.com/drive/folders/19lFNYNXSNCXMfYf2BHXEGIgQwWJrDKKy"
+    },
+    "Email": {
+      "copyText": "Yassien.m.m.tawfik@gmail.com"
+    },
+    "Phone": {
+      "copyText": "+201096835548"
+    }
+  }
+}
