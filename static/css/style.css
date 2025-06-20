@@ -1,3 +1,6 @@
+/* ==============================
+   Global Styles & Theme Colors
+   ============================== */
 :root {
     --bg: #121212;
     --bg-deep: #0d0d0d;
@@ -137,6 +140,8 @@ h1 {
     text-decoration: none;
     display: flex;
     align-items: center;
+    position: relative;
+    right: 15px;
     gap: 0.5rem;
     cursor: pointer;
     transition: all 0.35s;
@@ -217,14 +222,6 @@ h1 {
     border-color: var(--highlight);
 }
 
-.contact-form.success .email-input {
-    border-color: #4caf50;
-}
-
-.contact-form.error .email-input {
-    border-color: #f44336;
-}
-
 .footer {
     text-align: center;
     margin-top: 1.75rem;
@@ -263,25 +260,42 @@ h1 {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #cv-modal .viewer iframe {
+    flex: 1;
     width: 100%;
-    height: 100%;
     border: none;
 }
 
-#cv-modal .close-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+.modal-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem;
+    background: var(--bg);
+}
+
+#cv-modal .close-btn,
+.download-btn {
     background: var(--highlight);
     color: var(--bg);
     border: none;
     border-radius: 4px;
-    padding: 0.35rem 0.6rem;
+    padding: 0.4rem 0.7rem;
     font-size: 0.9rem;
     cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+#cv-modal .close-btn:hover,
+.download-btn:hover,
+#cv-modal .close-btn:focus-visible,
+.download-btn:focus-visible {
+    background: var(--text);
+    color: var(--bg);
 }
 
 @keyframes pulseClock {
@@ -300,5 +314,9 @@ h1 {
 
     .action-btn {
         padding: 0.45rem 1rem;
+    }
+
+    #cv-modal .viewer {
+        height: 90vh;
     }
 }
