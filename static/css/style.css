@@ -6,13 +6,17 @@
     --card: #1e1e1e;
     --border: #2c2c2c;
     --highlight: #cfcfcf;
-    --badge: #2b2b2b
+    --badge: #2b2b2b;
 }
 
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
-    padding: 0
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -33,14 +37,13 @@ body::selection {
     color: var(--bg-deep);
 }
 
-
 .container {
     background: var(--card);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .6);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
     max-width: 640px;
-    width: 100%
+    width: 100%;
 }
 
 .profile-image {
@@ -62,18 +65,18 @@ h1 {
     font-size: clamp(1.75rem, 5vw, 2.25rem);
     font-weight: 600;
     text-align: center;
-    margin-bottom: .5rem
+    margin-bottom: 0.5rem;
 }
 
 .tagline {
     text-align: center;
-    font-size: .95rem;
+    font-size: 0.95rem;
     color: var(--accent);
-    margin-bottom: 1.5rem
+    margin-bottom: 1.5rem;
 }
 
 .link-list {
-    list-style: none
+    list-style: none;
 }
 
 .link-item {
@@ -81,13 +84,13 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: .95rem 0;
+    padding: 0.95rem 0;
     border-bottom: 1px solid var(--border);
-    overflow: hidden
+    overflow: hidden;
 }
 
 .link-item:last-child {
-    border-bottom: none
+    border-bottom: none;
 }
 
 .link-item::before {
@@ -100,136 +103,202 @@ h1 {
     background: var(--highlight);
     transform: scaleY(0);
     transform-origin: top;
-    transition: transform .35s ease
+    transition: transform 0.35s ease;
 }
 
-.link-item:hover::before, .link-item:focus-within::before {
-    transform: scaleY(1)
+.link-item:hover::before,
+.link-item:focus-within::before {
+    transform: scaleY(1);
 }
 
 .label {
     display: flex;
     align-items: center;
-    gap: .75rem;
+    gap: 0.75rem;
     font-size: 1.05rem;
     color: var(--accent);
     text-transform: capitalize;
-    transition: color .35s;
-    margin-left: 20px
+    transition: color 0.35s;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
 .label i {
-    font-size: 1.25rem
+    font-size: 1.25rem;
 }
 
 .action-btn {
     background: transparent;
     color: var(--accent);
     border: 1px solid var(--accent);
-    padding: .45rem 1.2rem;
+    padding: 0.45rem 1.2rem;
     border-radius: 6px;
-    font-size: .85rem;
+    font-size: 0.85rem;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: 0.5rem;
     cursor: pointer;
-    transition: all .35s
+    transition: all 0.35s;
 }
 
 .action-btn i {
-    font-size: .9rem
+    font-size: 0.9rem;
 }
 
-.link-item:hover .label, .link-item:focus-within .label {
-    color: var(--text)
+.link-item:hover .label,
+.link-item:focus-within .label {
+    color: var(--text);
 }
 
-.link-item:hover .action-btn, .link-item:focus-within .action-btn {
+.link-item:hover .action-btn,
+.link-item:focus-within .action-btn {
     background: var(--highlight);
     color: var(--bg);
-    border-color: var(--highlight)
+    border-color: var(--highlight);
 }
 
 .action-btn:focus-visible {
     outline: 2px solid var(--highlight);
-    outline-offset: 2px
+    outline-offset: 4px;
 }
 
-.footer {
-    text-align: center;
-    margin-top: 1.75rem
-}
-
-.clock {
-    display: inline-block;
-    background: var(--badge);
-    padding: .4rem .8rem;
-    border-radius: 6px;
-    font-size: .85rem;
-    color: var(--accent)
-}
-
-/* contact form */
 .contact {
     margin-top: 2rem;
-    text-align: center
+    text-align: center;
 }
 
 .contact p {
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
     color: var(--accent);
-    font-size: .9rem
+    font-size: 0.9rem;
 }
 
 .contact-form {
     display: flex;
-    gap: .5rem;
+    gap: 0.5rem;
     justify-content: center;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .email-input {
     flex: 1 1 220px;
     max-width: 100%;
-    padding: .6rem .8rem;
+    padding: 0.6rem 0.8rem;
     border: 1px solid var(--border);
     border-radius: 6px;
     background: var(--bg-deep);
     color: var(--text);
-    font-size: .9rem
+    font-size: 0.9rem;
 }
 
 .email-input::placeholder {
-    color: var(--accent)
+    color: var(--accent);
 }
 
 .send-btn {
-    padding: .6rem 1.2rem;
+    padding: 0.6rem 1.2rem;
     border: 1px solid var(--accent);
     background: transparent;
     color: var(--accent);
     border-radius: 6px;
-    font-size: .85rem;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: all .35s;
+    transition: all 0.35s;
     display: flex;
     align-items: center;
-    gap: .4rem
+    gap: 0.4rem;
 }
 
-.send-btn:hover, .send-btn:focus-visible {
+.send-btn:hover,
+.send-btn:focus-visible {
     background: var(--highlight);
     color: var(--bg);
-    border-color: var(--highlight)
+    border-color: var(--highlight);
+}
+
+.contact-form.success .email-input {
+    border-color: #4caf50;
+}
+
+.contact-form.error .email-input {
+    border-color: #f44336;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 1.75rem;
+}
+
+.clock {
+    display: inline-block;
+    background: var(--badge);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    animation: pulseClock 3s ease-in-out infinite;
+}
+
+#cv-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+}
+
+#cv-modal.show {
+    display: flex;
+}
+
+#cv-modal .viewer {
+    width: 90%;
+    max-width: 920px;
+    height: 85vh;
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    position: relative;
+}
+
+#cv-modal .viewer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#cv-modal .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--highlight);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+@keyframes pulseClock {
+    0%, 100% {
+        opacity: 0.85;
+    }
+    50% {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 480px) {
     .label {
-        font-size: .95rem
+        font-size: 0.95rem;
     }
 
     .action-btn {
-        padding: .45rem 1rem
+        padding: 0.45rem 1rem;
     }
 }
