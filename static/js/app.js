@@ -1,27 +1,46 @@
-// --- Fetch tagline and links from JSON ---
-fetch('static/data/data.json')
-    .then(res => res.json())
-    .then(data => {
-        // Set Title
-        document.querySelector('.name').textContent = data.Name;
+// Create and inject modal used to preview the CV PDF
+const modal = document.createElement('div');
+modal.id = 'cv-modal';
+modal.innerHTML = `
+    <div class="viewer">
+        <button class="close-btn" aria-label="Close">✕</button>
+        <iframe title="CV PDF Viewer"></iframe>
+    </div>`;
+document.body.appendChild(modal);
 
-        // Set tagline
+const iframe = modal.querySelector('iframe');
+const closeBtn = modal.querySelector('.close-btn');
+
+closeBtn.onclick = () => modal.classList.remove('show');
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeBtn.click();
+});
+
+function openCVModal(url) {
+    iframe.src = url;
+    modal.classList.add('show');
+}
+
+// Load user data and dynamically generate profile links
+fetch('static/data/data.json')
+    .then(r => r.json())
+    .then(data => {
+        document.querySelector('.name').textContent = data.Name;
         document.querySelector('.tagline').textContent = data.tagline;
 
-        // Icons map
         const iconMap = {
-            "CV (PDF)": "fas fa-file-pdf",
-            "GitHub": "fab fa-github",
-            "LinkedIn": "fab fa-linkedin",
-            "LeetCode": "fas fa-code",
-            "Tinkercad": "fas fa-cogs",
-            "Certificates": "fab fa-google-drive",
-            "Email": "fas fa-envelope",
-            "Phone": "fas fa-phone"
+            'CV (PDF)': 'fas fa-file-pdf',
+            GitHub: 'fab fa-github',
+            LinkedIn: 'fab fa-linkedin',
+            LeetCode: 'fas fa-code',
+            Tinkercad: 'fas fa-cogs',
+            Certificates: 'fab fa-google-drive',
+            Email: 'fas fa-envelope',
+            Phone: 'fas fa-phone'
         };
 
-        // Build link items
-        const container = document.querySelector('.link-list');
+        const list = document.querySelector('.link-list');
+
         Object.entries(data.links).forEach(([label, info]) => {
             const li = document.createElement('li');
             li.className = 'link-item';
@@ -29,102 +48,100 @@ fetch('static/data/data.json')
             const icon = iconMap[label] || 'fas fa-link';
             const labelHTML = `<span class="label"><i class="${icon}"></i>${label}</span>`;
 
-            // External/download link
             if (info.href) {
-                const isDownload = label.toLowerCase().includes('cv') || info.href.endsWith('.pdf');
-                li.innerHTML = `
-                    ${labelHTML}
-                    <a class="action-btn" href="${info.href}" ${isDownload ? 'download' : 'target="_blank" rel="noopener"'}>
-                        <i class="${isDownload ? 'fas fa-download' : 'fas fa-arrow-up-right-from-square'}"></i>
-                        ${isDownload ? 'Download' : 'Visit'}
-                    </a>`;
-            }
+                const isCV = label.toLowerCase().includes('cv');
+                const isDownload = info.href.endsWith('.pdf') && !isCV;
 
-            // Copy button
-            else if (info.copyText) {
+                if (isCV) {
+                    li.innerHTML = `
+                        ${labelHTML}
+                        <button class="action-btn"
+                                onclick="openCVModal('${info.href}')">
+                            <i class="fas fa-eye"></i>View
+                        </button>`;
+                } else {
+                    li.innerHTML = `
+                        ${labelHTML}
+                        <a class="action-btn"
+                           href="${info.href}"
+                           ${isDownload ? 'download' : 'target="_blank" rel="noopener"'}>
+                           <i class="${isDownload ? 'fas fa-download' : 'fas fa-arrow-up-right-from-square'}"></i>
+                           ${isDownload ? 'Download' : 'Visit'}
+                        </a>`;
+                }
+            } else if (info.copyText) {
                 li.innerHTML = `
                     ${labelHTML}
-                    <button class="action-btn copy-btn" data-copy="${info.copyText}">
+                    <button class="action-btn copy-btn"
+                            data-copy="${info.copyText}">
                         <i class="fas fa-copy"></i>Copy
                     </button>`;
             }
 
-            if (label === "Tinkercad") {
-                li.classList.add('tinkercad-item');
-            }
-            container.appendChild(li);
+            if (label === 'Tinkercad') li.classList.add('tinkercad-item');
+            list.appendChild(li);
         });
 
-        // Re-bind copy button functionality for dynamically added elements
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const text = btn.dataset.copy;
+        list.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.onclick = async () => {
                 try {
-                    await navigator.clipboard.writeText(text);
-                    showToast(`Copied: ${text}`);
+                    await navigator.clipboard.writeText(btn.dataset.copy);
+                    toast(`Copied: ${btn.dataset.copy}`);
                 } catch {
-                    showToast('Copy failed');
+                    toast('Copy failed');
                 }
-            });
+            };
         });
-    })
-    .catch(err => console.error('Failed to load JSON:', err));
-
-// --- Toast function ---
-function showToast(msg) {
-    const toast = document.createElement('div');
-    toast.textContent = msg;
-    Object.assign(toast.style, {
-        position: 'fixed',
-        bottom: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: 'var(--highlight)',
-        color: 'var(--bg)',
-        padding: '0.6rem 1rem',
-        borderRadius: '6px',
-        fontSize: '0.85rem',
-        zIndex: '1000',
-        opacity: '0',
-        transition: 'opacity .3s'
     });
-    document.body.appendChild(toast);
-    requestAnimationFrame(() => toast.style.opacity = '1');
+
+// Toast notification utility
+function toast(msg) {
+    const box = document.createElement('div');
+    box.textContent = msg;
+    box.role = 'alert';
+    box.style.cssText = `
+        position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+        background:var(--highlight);color:var(--bg);padding:.6rem 1rem;
+        border-radius:6px;font-size:.85rem;z-index:1200;opacity:0;
+        transition:opacity .3s;pointer-events:none;backdrop-filter:blur(4px);
+        box-shadow:0 2px 8px rgba(0,0,0,.3)`;
+    document.body.appendChild(box);
+    requestAnimationFrame(() => (box.style.opacity = 1));
     setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.addEventListener('transitionend', () => toast.remove());
+        box.style.opacity = 0;
+        box.addEventListener('transitionend', () => box.remove());
     }, 2000);
 }
 
-// --- EmailJS contact form ---
+// Handle EmailJS contact form submission
 document.getElementById('contact-form').addEventListener('submit', async e => {
     e.preventDefault();
     const email = e.target.from_email.value.trim();
-    if (!email) return;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        toast('Invalid email address');
+        return;
+    }
 
     try {
         await emailjs.send('service_2k9xyz', 'template_d4ryemm', {from_email: email});
         await emailjs.send('service_2k9xyz', 'template_bir13y8', {
-            from_email: email,
-            to_email: email
+            from_email: email, to_email: email
         });
-
-        showToast("Thanks! I'll reach out soon.");
+        toast("Thanks! I'll reach out soon.");
         e.target.reset();
     } catch (err) {
-        showToast('Error — please try again.');
         console.error(err);
+        toast('Error — please try again');
     }
 });
 
-// --- Cairo local time badge ---
+// Display live Cairo time in footer badge
 function updateClock() {
-    const offset = 2;
-    const nowUTC = new Date(Date.now() + new Date().getTimezoneOffset() * 60000);
-    const cairo = new Date(nowUTC.getTime() + offset * 3600000);
-    const hh = cairo.getHours().toString().padStart(2, '0');
-    const mm = cairo.getMinutes().toString().padStart(2, '0');
-    document.getElementById('clock').textContent = `Cairo - ${hh}:${mm}`;
+    const time = new Intl.DateTimeFormat('en-EG', {
+        hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo', hour12: false
+    }).format(new Date());
+    document.getElementById('clock').textContent = `Cairo – ${time}`;
 }
 
 updateClock();
