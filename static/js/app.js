@@ -1,15 +1,21 @@
-// Create and inject modal used to preview the CV PDF
+// ==============================
+// 0. Modal for CV View & Download
+// ==============================
 const modal = document.createElement('div');
 modal.id = 'cv-modal';
 modal.innerHTML = `
     <div class="viewer">
-        <button class="close-btn" aria-label="Close">✕</button>
+        <div class="modal-controls">
+            <button class="close-btn" aria-label="Close">✕</button>
+            <a class="download-btn" href="" download target="_blank" rel="noopener">Download</a>
+        </div>
         <iframe title="CV PDF Viewer"></iframe>
     </div>`;
 document.body.appendChild(modal);
 
 const iframe = modal.querySelector('iframe');
 const closeBtn = modal.querySelector('.close-btn');
+const downloadBtn = modal.querySelector('.download-btn');
 
 closeBtn.onclick = () => modal.classList.remove('show');
 document.addEventListener('keydown', e => {
@@ -18,10 +24,13 @@ document.addEventListener('keydown', e => {
 
 function openCVModal(url) {
     iframe.src = url;
+    downloadBtn.href = url;
     modal.classList.add('show');
 }
 
-// Load user data and dynamically generate profile links
+// ==============================
+// 1. Fetch Data & Build UI
+// ==============================
 fetch('static/data/data.json')
     .then(r => r.json())
     .then(data => {
@@ -52,28 +61,20 @@ fetch('static/data/data.json')
                 const isCV = label.toLowerCase().includes('cv');
                 const isDownload = info.href.endsWith('.pdf') && !isCV;
 
-                if (isCV) {
-                    li.innerHTML = `
-                        ${labelHTML}
-                        <button class="action-btn"
-                                onclick="openCVModal('${info.href}')">
+                li.innerHTML = isCV
+                    ? `${labelHTML}
+                        <button class="action-btn" onclick="openCVModal('${info.href}')">
                             <i class="fas fa-eye"></i>View
-                        </button>`;
-                } else {
-                    li.innerHTML = `
-                        ${labelHTML}
-                        <a class="action-btn"
-                           href="${info.href}"
+                        </button>`
+                    : `${labelHTML}
+                        <a class="action-btn" href="${info.href}"
                            ${isDownload ? 'download' : 'target="_blank" rel="noopener"'}>
                            <i class="${isDownload ? 'fas fa-download' : 'fas fa-arrow-up-right-from-square'}"></i>
                            ${isDownload ? 'Download' : 'Visit'}
                         </a>`;
-                }
             } else if (info.copyText) {
-                li.innerHTML = `
-                    ${labelHTML}
-                    <button class="action-btn copy-btn"
-                            data-copy="${info.copyText}">
+                li.innerHTML = `${labelHTML}
+                    <button class="action-btn copy-btn" data-copy="${info.copyText}">
                         <i class="fas fa-copy"></i>Copy
                     </button>`;
             }
@@ -94,7 +95,9 @@ fetch('static/data/data.json')
         });
     });
 
-// Toast notification utility
+// ==============================
+// 2. Toast Notifications
+// ==============================
 function toast(msg) {
     const box = document.createElement('div');
     box.textContent = msg;
@@ -113,7 +116,9 @@ function toast(msg) {
     }, 2000);
 }
 
-// Handle EmailJS contact form submission
+// ==============================
+// 3. EmailJS Contact Form
+// ==============================
 document.getElementById('contact-form').addEventListener('submit', async e => {
     e.preventDefault();
     const email = e.target.from_email.value.trim();
@@ -126,7 +131,8 @@ document.getElementById('contact-form').addEventListener('submit', async e => {
     try {
         await emailjs.send('service_2k9xyz', 'template_d4ryemm', {from_email: email});
         await emailjs.send('service_2k9xyz', 'template_bir13y8', {
-            from_email: email, to_email: email
+            from_email: email,
+            to_email: email
         });
         toast("Thanks! I'll reach out soon.");
         e.target.reset();
@@ -136,13 +142,18 @@ document.getElementById('contact-form').addEventListener('submit', async e => {
     }
 });
 
-// Display live Cairo time in footer badge
+// ==============================
+// 4. Cairo Clock Badge
+// ==============================
 function updateClock() {
     const time = new Intl.DateTimeFormat('en-EG', {
-        hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo', hour12: false
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Africa/Cairo',
+        hour12: false
     }).format(new Date());
     document.getElementById('clock').textContent = `Cairo – ${time}`;
 }
 
 updateClock();
-setInterval(updateClock, 60000);
+setInterval(updateClock, 60_000);
