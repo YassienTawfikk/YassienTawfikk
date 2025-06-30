@@ -35,7 +35,7 @@ body {
     cursor: default;
 }
 
-body::selection {
+::selection {
     background-color: var(--accent);
     color: var(--bg-deep);
 }
