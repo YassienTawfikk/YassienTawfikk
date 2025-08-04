@@ -3,7 +3,7 @@
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2500&pause=1500&color=6dbac6&center=true&vCenter=true&width=700&lines=Hi,+I'm+Yassien+Tawfik!;Software+Engineer+%7C+AI+Developer+with+Biomedical+Edge;Innovating+for+a+Healthier+Future+through+Technology" />
 
 
-<img src="https://user-images.githubusercontent.com/74038190/212749168-86d6c7ab-98da-409b-998f-c5b74721badd.gif" height="400">
+<img src="https://user-images.githubusercontent.com/74038190/212749168-86d6c7ab-98da-409b-998f-c5b74721badd.gif" height="400" width="400">
 
 </div>
 
