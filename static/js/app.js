@@ -55,11 +55,19 @@ fetch('static/data/data.json')
             li.className = 'link-item';
 
             const icon = iconMap[label] || 'fas fa-link';
+
+            const isTinkercad = label === 'Tinkercad';
+
+            // Removed loginBadge variable to eliminate the warning icon
+
             const labelHTML = `<span class="label"><i class="${icon}"></i>${label}</span>`;
 
             if (info.href) {
                 const isCV = label.toLowerCase().includes('cv');
                 const isDownload = info.href.endsWith('.pdf') && !isCV;
+
+                // Add data attribute to the button for the click listener to target
+                const dataAttribute = isTinkercad ? 'data-requires-login="true"' : '';
 
                 li.innerHTML = isCV
                     ? `${labelHTML}
@@ -68,6 +76,7 @@ fetch('static/data/data.json')
                         </button>`
                     : `${labelHTML}
                         <a class="action-btn" href="${info.href}"
+                           ${dataAttribute}
                            ${isDownload ? 'download' : 'target="_blank" rel="noopener"'}>
                            <i class="${isDownload ? 'fas fa-download' : 'fas fa-arrow-up-right-from-square'}"></i>
                            ${isDownload ? 'Download' : 'Visit'}
@@ -79,8 +88,23 @@ fetch('static/data/data.json')
                     </button>`;
             }
 
-            if (label === 'Tinkercad') li.classList.add('tinkercad-item');
             list.appendChild(li);
+        });
+
+        // Click handler for the Tinkercad login warning
+        list.querySelectorAll('.action-btn[data-requires-login="true"]').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                // Professional and friendly warning message
+                const confirmation = window.confirm(
+                    "Tinkercad requires a free account to ensure projects are visible. Log in to the website to view the projects."
+                );
+
+                if (confirmation) {
+                    window.open(button.href, '_blank');
+                }
+            });
         });
 
         list.querySelectorAll('.copy-btn').forEach(btn => {
