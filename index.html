@@ -65,13 +65,28 @@
 </main>
 
 <!-- Modal Container -->
-<div id="cv-modal">
-    <div class="viewer">
+<div id="cv-modal" class="modal-backdrop">
+    <div class="viewer cv-viewer">
         <div class="modal-controls">
             <button class="close-btn" aria-label="Close">&times;</button>
             <a class="download-btn" href="#" download target="_blank" rel="noopener">Download</a>
         </div>
         <iframe title="CV PDF Viewer"></iframe>
+    </div>
+
+    <!-- Notification Dialog Structure -->
+    <div class="viewer notification-viewer" id="confirm-modal-content">
+        <div class="notification-box">
+            <h2 class="notification-title">Tinkercad Access</h2>
+            <p class="notification-message" id="confirm-message-text">
+                Tinkercad requires a free account to ensure projects are visible. Log in to the website to view the
+                projects.
+            </p>
+            <div class="notification-actions">
+                <!-- Only one button remains -->
+                <button id="confirm-ok" class="action-btn ok-btn">Continue to Site</button>
+            </div>
+        </div>
     </div>
 </div>
 
