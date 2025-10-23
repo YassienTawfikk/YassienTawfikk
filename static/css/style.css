@@ -399,10 +399,6 @@ h1 {
         padding: 0.45rem 1rem;
     }
 
-    #cv-modal.show {
-        align-items: flex-start;
-    }
-
     .cv-viewer {
         width: 90%;
         height: auto;
@@ -410,12 +406,11 @@ h1 {
         display: none;
     }
 
-    /*!* Mobile Notification Viewer adjustments *!*/
-    /*.notification-viewer {*/
-    /*    width: 90%;*/
-    /*    max-width: none;*/
-    /*    display: flex !important; !* Re-enable display for notification viewer *!*/
-    /*}*/
+    .notification-viewer {
+        width: 90%;
+        max-width: none;
+        display: flex !important;
+    }
 
     .notification-actions .action-btn {
         width: 100%;
