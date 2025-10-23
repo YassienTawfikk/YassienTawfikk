@@ -147,7 +147,7 @@ fetch('static/data/data.json')
                     // Check for mobile screen size to force download link
                     if (isMobileScreen()) {
                         li.innerHTML = `${labelHTML}
-                            <a class="action-btn" href="${info.href}" download>
+                            <a class="action-btn" href="${info.href}" download target="_blank" rel="noopener">
                                 <i class="fas fa-download"></i>View
                             </a>`;
                     } else {

@@ -279,7 +279,7 @@ h1 {
     display: none;
 }
 
-/* CV Viewer */
+/* CV Viewer (Desktop only) */
 .cv-viewer {
     width: 90%;
     max-width: 920px;
@@ -405,21 +405,16 @@ h1 {
 
     .cv-viewer {
         width: 90%;
-        height: 75vh;
+        height: auto;
         margin-top: 2.5vh;
-        display: block;
+        display: none;
     }
 
-    .cv-viewer iframe {
-        height: 100%;
-        min-height: 100%;
-        max-height: calc(100% - 48px);
-        overflow-y: scroll;
-    }
-
+    /* Mobile Notification Viewer adjustments */
     .notification-viewer {
         width: 90%;
         max-width: none;
+        display: flex !important; /* Re-enable display for notification viewer */
     }
 
     .notification-actions .action-btn {
