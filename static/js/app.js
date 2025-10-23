@@ -1,9 +1,8 @@
 // ==============================
-// 0. Modal for CV View & Download
+// 0. Modal Functionality
 // ==============================
 const modal = document.getElementById('cv-modal');
 const cvViewer = document.querySelector('.cv-viewer');
-// Updated selector for the notification modal container
 const notificationViewer = document.getElementById('confirm-modal-content').closest('.notification-viewer');
 
 const iframe = document.querySelector('.cv-viewer iframe');
@@ -11,13 +10,12 @@ const closeBtn = document.querySelector('.cv-viewer .close-btn');
 const downloadBtn = document.querySelector('.cv-viewer .download-btn');
 
 closeBtn.onclick = () => modal.classList.remove('show');
-// Default ESC behavior for CV modal
+
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') modal.classList.remove('show');
 });
 
 function openCVModal(url) {
-    // Setup for CV viewing
     cvViewer.style.display = 'flex';
     notificationViewer.style.display = 'none';
     iframe.src = url;
@@ -26,22 +24,24 @@ function openCVModal(url) {
 }
 
 // ==============================
-// 0.1 Custom Notification Handler (Single Button, Backdrop Dismiss)
+// 0.1 Custom Notification Handler
 // ==============================
+const notificationTitleEl = document.getElementById('notification-title');
 const confirmMessageText = document.getElementById('confirm-message-text');
 const confirmOk = document.getElementById('confirm-ok');
-// Note: confirmCancel button is removed from HTML but referenced here for clarity
 
-// Function to handle the custom notification dialog
-function customNotification(message) {
+function customNotification(title, message) {
     return new Promise(resolve => {
         // Setup Modal for notification
         cvViewer.style.display = 'none';
         notificationViewer.style.display = 'flex';
+
+        // Dynamically set title and message
+        notificationTitleEl.textContent = title;
         confirmMessageText.textContent = message;
+
         modal.classList.add('show');
 
-        // This function cleans up listeners and resolves the promise
         const cleanup = (shouldNavigate) => {
             confirmOk.onclick = null;
             modal.removeEventListener('click', handleCloseOrAction);
@@ -50,24 +50,19 @@ function customNotification(message) {
             resolve(shouldNavigate);
         };
 
-        // Combined handler for OK button, Backdrop click, and ESC key press
         const handleCloseOrAction = (e) => {
-            // Case 1: OK Button Clicked (Continue to Site)
             if (e.target === confirmOk) {
                 e.preventDefault();
                 cleanup(true);
                 return;
             }
 
-            // Case 2: Backdrop Clicked or ESC Pressed (Stay Here)
-            // Check if click target is the modal backdrop itself OR the ESC key is pressed
             if (e.target === modal || e.key === 'Escape') {
                 e.preventDefault();
                 cleanup(false);
                 return;
             }
 
-            // Case 3: Click inside the notification-viewer box (do nothing, prevent close)
             if (notificationViewer.contains(e.target) && e.target !== modal && e.type === 'click') {
                 e.stopPropagation();
             }
@@ -78,8 +73,6 @@ function customNotification(message) {
         document.addEventListener('keydown', handleCloseOrAction);
         confirmOk.onclick = handleCloseOrAction;
 
-        // Prevent click/key events inside the CV modal from affecting the notification logic
-        // (though CV modal is display:none, this ensures separation)
         document.querySelector('.cv-viewer').style.pointerEvents = 'none';
     });
 }
@@ -106,16 +99,16 @@ fetch('static/data/data.json')
         };
 
         const list = document.querySelector('.link-list');
-        // Final user-approved message text
-        const tinkercadMessage = "Tinkercad requires a free account to ensure projects are visible. Log in to the website to view the projects.";
 
+        // List to hold elements that require custom notification handling
+        const notificationButtons = [];
 
         Object.entries(data.links).forEach(([label, info]) => {
             const li = document.createElement('li');
             li.className = 'link-item';
 
             const icon = iconMap[label] || 'fas fa-link';
-            const isTinkercad = label === 'Tinkercad';
+            const hasNotification = info.notification_title && info.notification_description;
 
             const labelHTML = `<span class="label"><i class="${icon}"></i>${label}</span>`;
 
@@ -123,7 +116,8 @@ fetch('static/data/data.json')
                 const isCV = label.toLowerCase().includes('cv');
                 const isDownload = info.href.endsWith('.pdf') && !isCV;
 
-                const dataAttribute = isTinkercad ? 'data-requires-login="true"' : '';
+                // Use a data attribute to flag links requiring notification
+                const dataAttribute = hasNotification ? 'data-requires-notification="true"' : '';
 
                 li.innerHTML = isCV
                     ? `${labelHTML}
@@ -137,6 +131,25 @@ fetch('static/data/data.json')
                            <i class="${isDownload ? 'fas fa-download' : 'fas fa-arrow-up-right-from-square'}"></i>
                            ${isDownload ? 'Download' : 'Visit'}
                         </a>`;
+
+                // If a notification is required, save the button and its associated data
+                if (hasNotification) {
+                    // Need to find the dynamically created anchor tag for the notification
+                    // Wait for it to be appended to the DOM to ensure we capture the element
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = li.innerHTML;
+                    const button = tempDiv.querySelector('[data-requires-notification="true"]');
+
+                    if (button) {
+                        notificationButtons.push({
+                            element: button,
+                            title: info.notification_title,
+                            description: info.notification_description,
+                            href: info.href
+                        });
+                    }
+                }
+
             } else if (info.copyText) {
                 li.innerHTML = `${labelHTML}
                     <button class="action-btn copy-btn" data-copy="${info.copyText}">
@@ -147,28 +160,59 @@ fetch('static/data/data.json')
             list.appendChild(li);
         });
 
-        // Click handler now uses the customNotification function
-        list.querySelectorAll('.action-btn[data-requires-login="true"]').forEach(button => {
-            button.addEventListener('click', async (event) => {
-                event.preventDefault();
+        // ==============================
+        // ATTACH DYNAMIC NOTIFICATION LISTENERS
+        // ==============================
+        list.querySelectorAll('[data-requires-notification="true"]').forEach(button => {
+            // Find the corresponding data object
+            const dataObject = notificationButtons.find(item => item.element.href === button.href);
 
-                // *** Using the new customNotification() function ***
-                const confirmation = await customNotification(tinkercadMessage);
+            if (dataObject) {
+                button.addEventListener('click', async (event) => {
+                    event.preventDefault(); // Prevent default link navigation
 
-                if (confirmation) {
-                    // Navigate if confirmed
-                    window.open(button.href, '_blank');
-                }
-            });
+                    const confirmation = await customNotification(dataObject.title, dataObject.description);
+
+                    if (confirmation) {
+                        window.open(dataObject.href, '_blank');
+                    }
+                });
+            }
         });
 
+        // ==============================
+        // ENHANCED COPY BUTTON LOGIC
+        // ==============================
         list.querySelectorAll('.copy-btn').forEach(btn => {
             btn.onclick = async () => {
+                const originalHTML = btn.innerHTML;
+                const copyValue = btn.dataset.copy;
+
+                const resetStyles = () => {
+                    if (btn.innerHTML.includes('fas fa-check') || btn.innerHTML.includes('fas fa-times')) {
+                        btn.innerHTML = originalHTML;
+                        btn.style.cssText = '';
+                    }
+                };
+
                 try {
-                    await navigator.clipboard.writeText(btn.dataset.copy);
-                    toast(`Copied: ${btn.dataset.copy}`);
-                } catch {
-                    toast('Copy failed');
+                    btn.style.cssText = 'background: #4CAF50; border-color: #4CAF50; color: var(--bg-deep);';
+                    await navigator.clipboard.writeText(copyValue);
+
+                    btn.innerHTML = '<i class="fas fa-check"></i>Copied';
+                    toast(`Copied: ${copyValue}`);
+
+                    setTimeout(resetStyles, 1500);
+
+                } catch (err) {
+                    console.error('Copy failed:', err);
+                    btn.style.cssText = 'background: #F44336; border-color: #F44336; color: var(--bg-deep);';
+
+                    toast('Copy failed. Please copy manually.');
+
+                    btn.innerHTML = '<i class="fas fa-times"></i>Failed';
+
+                    setTimeout(resetStyles, 1500);
                 }
             };
         });
