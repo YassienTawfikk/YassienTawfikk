@@ -402,11 +402,17 @@ h1 {
         padding: 0.45rem 1rem;
     }
 
-    /* FIX: Reduce CV viewer size on mobile to reveal backdrop for closing
-       and force the PDF iframe to show its scrollbar */
+    /* FIX: Align modal content to the top (start) */
+    #cv-modal.show {
+        align-items: flex-start;
+    }
+
+    /* CV viewer size on mobile (75vh height)
+       Added margin-top for padding from the screen edge */
     .cv-viewer {
         width: 90%;
         height: 75vh;
+        margin-top: 2.5vh; /* Push content down slightly from the top edge */
     }
 
     .notification-viewer {
