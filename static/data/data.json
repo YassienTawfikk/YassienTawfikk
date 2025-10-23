@@ -11,13 +11,13 @@
     "LinkedIn": {
       "href": "https://linkedin.com/in/yassien-tawfik"
     },
-    "LeetCode": {
-      "href": "https://leetcode.com/u/YassienTawfik/"
-    },
     "Tinkercad": {
       "href": "https://www.tinkercad.com/users/2vAATFFVET6?type=circuits",
       "notification_title": "Tinkercad Access",
       "notification_description": "Tinkercad requires a free account to ensure projects are visible. Log in to the website to view th projects."
+    },
+    "LeetCode": {
+      "href": "https://leetcode.com/u/YassienTawfik/"
     },
     "Certificates": {
       "href": "https://drive.google.com/drive/folders/19lFNYNXSNCXMfYf2BHXEGIgQwWJrDKKy"
