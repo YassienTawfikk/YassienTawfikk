@@ -410,12 +410,12 @@ h1 {
         display: none;
     }
 
-    /* Mobile Notification Viewer adjustments */
-    .notification-viewer {
-        width: 90%;
-        max-width: none;
-        display: flex !important; /* Re-enable display for notification viewer */
-    }
+    /*!* Mobile Notification Viewer adjustments *!*/
+    /*.notification-viewer {*/
+    /*    width: 90%;*/
+    /*    max-width: none;*/
+    /*    display: flex !important; !* Re-enable display for notification viewer *!*/
+    /*}*/
 
     .notification-actions .action-btn {
         width: 100%;
