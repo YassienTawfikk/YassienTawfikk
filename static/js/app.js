@@ -148,7 +148,7 @@ fetch('static/data/data.json')
                     if (isMobileScreen()) {
                         li.innerHTML = `${labelHTML}
                             <a class="action-btn" href="${info.href}" download>
-                                <i class="fas fa-download"></i>Download
+                                <i class="fas fa-download"></i>View
                             </a>`;
                     } else {
                         // Desktop: Keep View Modal
