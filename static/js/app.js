@@ -1,74 +1,57 @@
 // ==============================
-// 0. Modal Functionality
+// 1. DOM ELEMENTS AND INITIAL SETUP
 // ==============================
 const modal = document.getElementById('cv-modal');
 const cvViewer = document.querySelector('.cv-viewer');
 const notificationViewer = document.getElementById('confirm-modal-content').closest('.notification-viewer');
-
 const iframe = document.querySelector('.cv-viewer iframe');
 const downloadBtn = document.querySelector('.cv-viewer .download-btn');
 
-// 1. ESC key listener
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-        modal.classList.remove('show');
-        document.body.classList.remove('modal-open'); // Remove class on close
-    }
-});
-
-// 2. Backdrop click listener
-modal.addEventListener('click', e => {
-    if (e.target === modal) {
-        modal.classList.remove('show');
-        document.body.classList.remove('modal-open'); // Remove class on close
-    }
-});
-
-function openCVModal(url) {
-    cvViewer.style.display = 'flex';
-    notificationViewer.style.display = 'none';
-    iframe.src = url;
-    downloadBtn.href = url;
-    modal.classList.add('show');
-    document.body.classList.add('modal-open'); // Add class on open
-}
-
-// ==============================
-// 0.1 Custom Notification Handler
-// ==============================
+// Notification Elements
 const notificationTitleEl = document.getElementById('notification-title');
 const confirmMessageText = document.getElementById('confirm-message-text');
 const confirmOk = document.getElementById('confirm-ok');
 
+// ==============================
+// 2. MODAL & DIALOG FUNCTIONALITY
+// ==============================
+function openCVModal(url) {
+    cvViewer.style.display = 'flex';
+    notificationViewer.style.display = 'none';
+
+    iframe.src = url;
+    downloadBtn.href = url;
+
+    modal.classList.add('show');
+    document.body.classList.add('modal-open');
+}
+
 function customNotification(title, message) {
     return new Promise(resolve => {
-        // Setup Modal for notification
         cvViewer.style.display = 'none';
         notificationViewer.style.display = 'flex';
 
-        // Dynamically set title and message
         notificationTitleEl.textContent = title;
         confirmMessageText.textContent = message;
 
         modal.classList.add('show');
-        document.body.classList.add('modal-open'); // Add class on open
+        document.body.classList.add('modal-open');
 
         const cleanup = (shouldNavigate) => {
             confirmOk.onclick = null;
             document.removeEventListener('keydown', handleCloseOrAction);
             modal.classList.remove('show');
-            document.body.classList.remove('modal-open'); // Remove class on cleanup
+            document.body.classList.remove('modal-open');
             resolve(shouldNavigate);
         };
 
         const handleCloseOrAction = (e) => {
-            if (e.target === confirmOk) {
+            if (e.target === confirmOk || e.type === 'click' && confirmOk.contains(e.target)) {
                 e.preventDefault();
                 cleanup(true);
                 return;
             }
 
-            // Check if ESC is pressed during notification view
             if (e.key === 'Escape') {
                 e.preventDefault();
                 cleanup(false);
@@ -80,17 +63,50 @@ function customNotification(title, message) {
             }
         };
 
-        // Attach listeners
         document.addEventListener('keydown', handleCloseOrAction);
         confirmOk.onclick = handleCloseOrAction;
-
-        document.querySelector('.cv-viewer').style.pointerEvents = 'none';
     });
 }
 
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !notificationViewer.classList.contains('show')) {
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+    }
+});
+
+modal.addEventListener('click', e => {
+    if (e.target === modal) {
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+    }
+});
 
 // ==============================
-// 1. Fetch Data & Build UI
+// 3. TOAST NOTIFICATIONS
+// ==============================
+function toast(msg) {
+    const box = document.createElement('div');
+    box.textContent = msg;
+    box.role = 'alert';
+
+    box.style.cssText = `
+        position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+        background:var(--highlight);color:var(--bg);padding:.6rem 1rem;
+        border-radius:6px;font-size:.85rem;z-index:1200;opacity:0;
+        transition:opacity .3s;pointer-events:none;backdrop-filter:blur(4px);
+        box-shadow:0 2px 8px rgba(0,0,0,.3)`;
+    document.body.appendChild(box);
+
+    requestAnimationFrame(() => (box.style.opacity = 1));
+    setTimeout(() => {
+        box.style.opacity = 0;
+        box.addEventListener('transitionend', () => box.remove());
+    }, 2000);
+}
+
+// ==============================
+// 4. DATA FETCHING AND UI RENDERING
 // ==============================
 fetch('static/data/data.json')
     .then(r => r.json())
@@ -110,8 +126,6 @@ fetch('static/data/data.json')
         };
 
         const list = document.querySelector('.link-list');
-
-        // List to hold elements that require custom notification handling
         const notificationButtons = [];
 
         Object.entries(data.links).forEach(([label, info]) => {
@@ -120,32 +134,29 @@ fetch('static/data/data.json')
 
             const icon = iconMap[label] || 'fas fa-link';
             const hasNotification = info.notification_title && info.notification_description;
-
             const labelHTML = `<span class="label"><i class="${icon}"></i>${label}</span>`;
 
             if (info.href) {
                 const isCV = label.toLowerCase().includes('cv');
                 const isDownload = info.href.endsWith('.pdf') && !isCV;
-
-                // Use a data attribute to flag links requiring notification
                 const dataAttribute = hasNotification ? 'data-requires-notification="true"' : '';
 
-                li.innerHTML = isCV
-                    ? `${labelHTML}
+                if (isCV) {
+                    li.innerHTML = `${labelHTML}
                         <button class="action-btn" onclick="openCVModal('${info.href}')">
                             <i class="fas fa-eye"></i>View
-                        </button>`
-                    : `${labelHTML}
+                        </button>`;
+                } else {
+                    li.innerHTML = `${labelHTML}
                         <a class="action-btn" href="${info.href}"
                            ${dataAttribute}
                            ${isDownload ? 'download' : 'target="_blank" rel="noopener"'}>
                            <i class="${isDownload ? 'fas fa-download' : 'fas fa-arrow-up-right-from-square'}"></i>
                            ${isDownload ? 'Download' : 'Visit'}
                         </a>`;
+                }
 
-                // If a notification is required, save the button and its associated data
                 if (hasNotification) {
-                    // Need to find the dynamically created anchor tag for the notification
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = li.innerHTML;
                     const button = tempDiv.querySelector('[data-requires-notification="true"]');
@@ -170,16 +181,12 @@ fetch('static/data/data.json')
             list.appendChild(li);
         });
 
-        // ==============================
-        // ATTACH DYNAMIC NOTIFICATION LISTENERS
-        // ==============================
         list.querySelectorAll('[data-requires-notification="true"]').forEach(button => {
-            // Find the corresponding data object
             const dataObject = notificationButtons.find(item => item.element.href === button.href);
 
             if (dataObject) {
                 button.addEventListener('click', async (event) => {
-                    event.preventDefault(); // Prevent default link navigation
+                    event.preventDefault();
 
                     const confirmation = await customNotification(dataObject.title, dataObject.description);
 
@@ -190,9 +197,6 @@ fetch('static/data/data.json')
             }
         });
 
-        // ==============================
-        // ENHANCED COPY BUTTON LOGIC
-        // ==============================
         list.querySelectorAll('.copy-btn').forEach(btn => {
             btn.onclick = async () => {
                 const originalHTML = btn.innerHTML;
@@ -229,28 +233,7 @@ fetch('static/data/data.json')
     });
 
 // ==============================
-// 2. Toast Notifications
-// ==============================
-function toast(msg) {
-    const box = document.createElement('div');
-    box.textContent = msg;
-    box.role = 'alert';
-    box.style.cssText = `
-        position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-        background:var(--highlight);color:var(--bg);padding:.6rem 1rem;
-        border-radius:6px;font-size:.85rem;z-index:1200;opacity:0;
-        transition:opacity .3s;pointer-events:none;backdrop-filter:blur(4px);
-        box-shadow:0 2px 8px rgba(0,0,0,.3)`;
-    document.body.appendChild(box);
-    requestAnimationFrame(() => (box.style.opacity = 1));
-    setTimeout(() => {
-        box.style.opacity = 0;
-        box.addEventListener('transitionend', () => box.remove());
-    }, 2000);
-}
-
-// ==============================
-// 3. EmailJS Contact Form
+// 5. EMAILJS CONTACT FORM SUBMISSION
 // ==============================
 document.getElementById('contact-form').addEventListener('submit', async e => {
     e.preventDefault();
@@ -276,7 +259,7 @@ document.getElementById('contact-form').addEventListener('submit', async e => {
 });
 
 // ==============================
-// 4. Cairo Clock Badge
+// 6. CAIRO CLOCK BADGE
 // ==============================
 function updateClock() {
     const time = new Intl.DateTimeFormat('en-EG', {
