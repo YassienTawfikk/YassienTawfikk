@@ -6,13 +6,22 @@ const cvViewer = document.querySelector('.cv-viewer');
 const notificationViewer = document.getElementById('confirm-modal-content').closest('.notification-viewer');
 
 const iframe = document.querySelector('.cv-viewer iframe');
-const closeBtn = document.querySelector('.cv-viewer .close-btn');
 const downloadBtn = document.querySelector('.cv-viewer .download-btn');
 
-closeBtn.onclick = () => modal.classList.remove('show');
-
+// 1. ESC key listener
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') modal.classList.remove('show');
+    if (e.key === 'Escape') {
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open'); // Remove class on close
+    }
+});
+
+// 2. Backdrop click listener
+modal.addEventListener('click', e => {
+    if (e.target === modal) {
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open'); // Remove class on close
+    }
 });
 
 function openCVModal(url) {
@@ -21,6 +30,7 @@ function openCVModal(url) {
     iframe.src = url;
     downloadBtn.href = url;
     modal.classList.add('show');
+    document.body.classList.add('modal-open'); // Add class on open
 }
 
 // ==============================
@@ -41,12 +51,13 @@ function customNotification(title, message) {
         confirmMessageText.textContent = message;
 
         modal.classList.add('show');
+        document.body.classList.add('modal-open'); // Add class on open
 
         const cleanup = (shouldNavigate) => {
             confirmOk.onclick = null;
-            modal.removeEventListener('click', handleCloseOrAction);
             document.removeEventListener('keydown', handleCloseOrAction);
             modal.classList.remove('show');
+            document.body.classList.remove('modal-open'); // Remove class on cleanup
             resolve(shouldNavigate);
         };
 
@@ -57,7 +68,8 @@ function customNotification(title, message) {
                 return;
             }
 
-            if (e.target === modal || e.key === 'Escape') {
+            // Check if ESC is pressed during notification view
+            if (e.key === 'Escape') {
                 e.preventDefault();
                 cleanup(false);
                 return;
@@ -69,7 +81,6 @@ function customNotification(title, message) {
         };
 
         // Attach listeners
-        modal.addEventListener('click', handleCloseOrAction);
         document.addEventListener('keydown', handleCloseOrAction);
         confirmOk.onclick = handleCloseOrAction;
 
@@ -135,7 +146,6 @@ fetch('static/data/data.json')
                 // If a notification is required, save the button and its associated data
                 if (hasNotification) {
                     // Need to find the dynamically created anchor tag for the notification
-                    // Wait for it to be appended to the DOM to ensure we capture the element
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = li.innerHTML;
                     const button = tempDiv.querySelector('[data-requires-notification="true"]');
