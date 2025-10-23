@@ -286,6 +286,7 @@ h1 {
     flex: 1;
     width: 100%;
     border: none;
+    overflow: auto;
 }
 
 .modal-controls {
@@ -412,7 +413,20 @@ h1 {
     .cv-viewer {
         width: 90%;
         height: 75vh;
-        margin-top: 2.5vh; /* Push content down slightly from the top edge */
+        margin-top: 2.5vh;
+        /* --- ADD THIS LINE --- */
+        display: block; /* Important: Change to block to allow non-flex scrolling */
+    }
+
+    /* --- ADD THIS NEW RULE --- */
+    /* Target the iframe on mobile to enable full content scrolling */
+    .cv-viewer iframe {
+        height: 100%;
+        min-height: 100%;
+        /* Setting max-height and overflow to enforce the content scrolling */
+        max-height: calc(100% - 48px); /* 48px is roughly the height of .modal-controls */
+        overflow-y: scroll;
+        /* Ensure the iframe itself takes up the available vertical space */
     }
 
     .notification-viewer {
