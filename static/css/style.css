@@ -237,6 +237,11 @@ h1 {
     animation: pulseClock 3s ease-in-out infinite;
 }
 
+/* ==============================
+   Modal Styling (CV & Notification)
+   ============================== */
+
+/* Modal Backdrop */
 #cv-modal {
     position: fixed;
     inset: 0;
@@ -245,26 +250,34 @@ h1 {
     align-items: center;
     justify-content: center;
     z-index: 1100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 #cv-modal.show {
     display: flex;
+    opacity: 1;
 }
 
+/* Common Viewer Styles (Card container inside modal) */
 #cv-modal .viewer {
-    width: 90%;
-    max-width: 920px;
-    height: 85vh;
     background: var(--card);
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     position: relative;
-    display: flex;
+    display: none; /* Default to hidden, show CV or Notification content via JS */
+}
+
+/* CV Viewer Styles */
+.cv-viewer {
+    width: 90%;
+    max-width: 920px;
+    height: 85vh;
     flex-direction: column;
 }
 
-#cv-modal .viewer iframe {
+.cv-viewer iframe {
     flex: 1;
     width: 100%;
     border: none;
@@ -298,6 +311,69 @@ h1 {
     color: var(--bg);
 }
 
+
+/* ---------------------------------
+   Notification Dialog Styling
+   --------------------------------- */
+.notification-viewer {
+    max-width: 400px;
+    padding: 1.5rem;
+    display: none; /* Hide by default */
+    text-align: left; /* Aligned text to the left */
+}
+
+.notification-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Reduced gap for cleaner look */
+}
+
+.notification-title {
+    font-size: 1.25rem;
+    color: var(--highlight);
+    margin-top: 0.25rem;
+    text-align: left;
+}
+
+.notification-message {
+    font-size: 0.95rem;
+    color: var(--accent);
+    line-height: 1.4;
+    padding-bottom: 0.75rem;
+    text-align: left;
+}
+
+.notification-actions {
+    display: flex;
+    /* Removed gap and justification for single full-width button */
+    margin-top: 0.5rem;
+}
+
+/* Style the single remaining button */
+.notification-actions .action-btn {
+    position: static;
+    flex: 1 1 100%; /* Make it 100% width */
+    max-width: 100%;
+    padding: 0.6rem 1rem;
+    justify-content: center; /* Center text/icon within the button */
+}
+
+.notification-actions .ok-btn {
+    /* Primary action uses the highlight color for visibility */
+    background: var(--highlight);
+    border-color: var(--highlight);
+    color: var(--bg-deep); /* Text color must contrast with highlight */
+    font-weight: 600;
+}
+
+.notification-actions .ok-btn:hover {
+    background: var(--text);
+    border-color: var(--text);
+}
+
+/* --------------------------------- */
+
+
 @keyframes pulseClock {
     0%, 100% {
         opacity: 0.85;
@@ -316,7 +392,18 @@ h1 {
         padding: 0.45rem 1rem;
     }
 
-    #cv-modal .viewer {
+    .cv-viewer {
         height: 90vh;
+    }
+
+    .notification-viewer {
+        width: 90%;
+        max-width: none;
+    }
+
+    /* Ensure mobile button is always full width */
+    .notification-actions .action-btn {
+        width: 100%;
+        max-width: 100%;
     }
 }
