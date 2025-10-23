@@ -1,0 +1,16 @@
+# IDEs and Editors
+.idea/
+*.iml
+.vscode/
+
+# Operating System and Environment
+.DS_Store
+Thumbs.db
+
+# Build/Cache Directories
+/build/
+/dist/
+/venv/
+.cache/
+*cache*
+*.log
