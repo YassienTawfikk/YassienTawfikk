@@ -408,16 +408,13 @@ h1 {
         height: 75vh;
         margin-top: 2.5vh;
         display: block;
-        flex-direction: column;
-        overflow-y: scroll;
     }
 
     .cv-viewer iframe {
-        position: relative;
-        height: 120vh;
+        height: 100%;
         min-height: 100%;
-        overflow-y: hidden;
-        flex: none;
+        max-height: calc(100% - 48px);
+        overflow-y: scroll;
     }
 
     .notification-viewer {
