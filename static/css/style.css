@@ -1,5 +1,5 @@
 /* ==============================
-   Global Styles & Theme Colors
+   1. GLOBAL STYLES AND UTILITIES
    ============================== */
 :root {
     --bg: #121212;
@@ -35,7 +35,6 @@ body {
     cursor: default;
 }
 
-/* Prevents background scrolling when modal is open */
 body.modal-open {
     overflow: hidden;
 }
@@ -45,6 +44,9 @@ body.modal-open {
     color: var(--bg-deep);
 }
 
+/* ==============================
+   2. LAYOUT AND HEADER COMPONENTS
+   ============================== */
 .container {
     background: var(--card);
     padding: 2rem;
@@ -83,6 +85,9 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
+/* ==============================
+   3. LINK LIST AND BUTTONS
+   ============================== */
 .link-list {
     list-style: none;
 }
@@ -173,6 +178,9 @@ h1 {
     outline-offset: 4px;
 }
 
+/* ==============================
+   4. CONTACT FORM AND FOOTER
+   ============================== */
 .contact {
     margin-top: 2rem;
     text-align: center;
@@ -243,10 +251,8 @@ h1 {
 }
 
 /* ==============================
-   Modal Styling (CV & Notification)
+   5. MODAL SYSTEM
    ============================== */
-
-/* Modal Backdrop */
 #cv-modal {
     position: fixed;
     inset: 0;
@@ -264,17 +270,16 @@ h1 {
     opacity: 1;
 }
 
-/* Common Viewer Styles (Card container inside modal) */
 #cv-modal .viewer {
     background: var(--card);
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     position: relative;
-    display: none; /* Default to hidden, show CV or Notification content via JS */
+    display: none;
 }
 
-/* CV Viewer Styles - Desktop */
+/* CV Viewer */
 .cv-viewer {
     width: 90%;
     max-width: 920px;
@@ -290,14 +295,12 @@ h1 {
 }
 
 .modal-controls {
-    /* Adjusted for single full-width button */
     display: flex;
     justify-content: center;
     padding: 0.6rem;
     background: var(--bg);
 }
 
-/* CV Download Button Styling */
 .download-btn {
     background: var(--highlight);
     color: var(--bg);
@@ -306,7 +309,6 @@ h1 {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease;
-
     width: 100%;
     text-decoration: none;
     display: block;
@@ -322,21 +324,18 @@ h1 {
     color: var(--bg);
 }
 
-
-/* ---------------------------------
-   Notification Dialog Styling
-   --------------------------------- */
+/* Notification Dialog */
 .notification-viewer {
     max-width: 400px;
     padding: 1.5rem;
-    display: none; /* Hide by default */
-    text-align: left; /* Aligned text to the left */
+    display: none;
+    text-align: left;
 }
 
 .notification-box {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem; /* Reduced gap for cleaner look */
+    gap: 0.75rem;
 }
 
 .notification-title {
@@ -356,24 +355,21 @@ h1 {
 
 .notification-actions {
     display: flex;
-    /* Removed gap and justification for single full-width button */
     margin-top: 0.5rem;
 }
 
-/* Style the single remaining button */
 .notification-actions .action-btn {
     position: static;
-    flex: 1 1 100%; /* Make it 100% width */
+    flex: 1 1 100%;
     max-width: 100%;
     padding: 0.6rem 1rem;
-    justify-content: center; /* Center text/icon within the button */
+    justify-content: center;
 }
 
 .notification-actions .ok-btn {
-    /* Primary action uses the highlight color for visibility */
     background: var(--highlight);
     border-color: var(--highlight);
-    color: var(--bg-deep); /* Text color must contrast with highlight */
+    color: var(--bg-deep);
     font-weight: 600;
 }
 
@@ -382,9 +378,9 @@ h1 {
     border-color: var(--text);
 }
 
-/* --------------------------------- */
-
-
+/* ==============================
+   6. ANIMATIONS AND MEDIA QUERIES
+   ============================== */
 @keyframes pulseClock {
     0%, 100% {
         opacity: 0.85;
@@ -403,30 +399,22 @@ h1 {
         padding: 0.45rem 1rem;
     }
 
-    /* FIX: Align modal content to the top (start) */
     #cv-modal.show {
         align-items: flex-start;
     }
 
-    /* CV viewer size on mobile (75vh height)
-       Added margin-top for padding from the screen edge */
     .cv-viewer {
         width: 90%;
         height: 75vh;
         margin-top: 2.5vh;
-        /* --- ADD THIS LINE --- */
-        display: block; /* Important: Change to block to allow non-flex scrolling */
+        display: block;
     }
 
-    /* --- ADD THIS NEW RULE --- */
-    /* Target the iframe on mobile to enable full content scrolling */
     .cv-viewer iframe {
         height: 100%;
         min-height: 100%;
-        /* Setting max-height and overflow to enforce the content scrolling */
-        max-height: calc(100% - 48px); /* 48px is roughly the height of .modal-controls */
+        max-height: calc(100% - 48px);
         overflow-y: scroll;
-        /* Ensure the iframe itself takes up the available vertical space */
     }
 
     .notification-viewer {
@@ -434,7 +422,6 @@ h1 {
         max-width: none;
     }
 
-    /* Ensure mobile button is always full width */
     .notification-actions .action-btn {
         width: 100%;
         max-width: 100%;
