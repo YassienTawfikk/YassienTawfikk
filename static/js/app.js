@@ -108,6 +108,8 @@ function toast(msg) {
 // ==============================
 // 4. DATA FETCHING AND UI RENDERING
 // ==============================
+const isMobileScreen = () => window.innerWidth <= 480;
+
 fetch('static/data/data.json')
     .then(r => r.json())
     .then(data => {
@@ -142,10 +144,19 @@ fetch('static/data/data.json')
                 const dataAttribute = hasNotification ? 'data-requires-notification="true"' : '';
 
                 if (isCV) {
-                    li.innerHTML = `${labelHTML}
-                        <button class="action-btn" onclick="openCVModal('${info.href}')">
-                            <i class="fas fa-eye"></i>View
-                        </button>`;
+                    // Check for mobile screen size to force download link
+                    if (isMobileScreen()) {
+                        li.innerHTML = `${labelHTML}
+                            <a class="action-btn" href="${info.href}" download>
+                                <i class="fas fa-download"></i>Download
+                            </a>`;
+                    } else {
+                        // Desktop: Keep View Modal
+                        li.innerHTML = `${labelHTML}
+                            <button class="action-btn" onclick="openCVModal('${info.href}')">
+                                <i class="fas fa-eye"></i>View
+                            </button>`;
+                    }
                 } else {
                     li.innerHTML = `${labelHTML}
                         <a class="action-btn" href="${info.href}"
@@ -159,9 +170,28 @@ fetch('static/data/data.json')
                 if (hasNotification) {
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = li.innerHTML;
-                    const button = tempDiv.querySelector('[data-requires-notification="true"]');
+                    // Note: If on mobile, the link is an <a> tag now, not a button, so check for both.
+                    const selector = isMobileScreen() ? `[href="${info.href}"]` : '[data-requires-notification="true"]';
+                    const button = tempDiv.querySelector(selector);
 
-                    if (button) {
+                    // Revert CV link on mobile to button to capture notification click if one is defined
+                    if (isCV && isMobileScreen() && hasNotification) {
+                        li.innerHTML = `${labelHTML}
+                            <button class="action-btn" data-requires-notification="true" data-href="${info.href}">
+                                <i class="fas fa-download"></i>Download
+                            </button>`;
+
+                        // We must re-select the new button element
+                        const newButton = li.querySelector('button');
+                        if (newButton) {
+                            notificationButtons.push({
+                                element: newButton,
+                                title: info.notification_title,
+                                description: info.notification_description,
+                                href: info.href
+                            });
+                        }
+                    } else if (button) {
                         notificationButtons.push({
                             element: button,
                             title: info.notification_title,
@@ -181,8 +211,11 @@ fetch('static/data/data.json')
             list.appendChild(li);
         });
 
+        // Attach Dynamic Notification Listeners
         list.querySelectorAll('[data-requires-notification="true"]').forEach(button => {
-            const dataObject = notificationButtons.find(item => item.element.href === button.href);
+            // Use href from data-href attribute if it's a mobile CV button
+            const targetHref = button.dataset.href || button.href;
+            const dataObject = notificationButtons.find(item => item.href === targetHref);
 
             if (dataObject) {
                 button.addEventListener('click', async (event) => {
@@ -191,7 +224,17 @@ fetch('static/data/data.json')
                     const confirmation = await customNotification(dataObject.title, dataObject.description);
 
                     if (confirmation) {
-                        window.open(dataObject.href, '_blank');
+                        // Use a direct download link on mobile, or window.open for others
+                        if (isMobileScreen() && dataObject.element.tagName === 'BUTTON') {
+                            const tempLink = document.createElement('a');
+                            tempLink.href = dataObject.href;
+                            tempLink.download = true;
+                            document.body.appendChild(tempLink);
+                            tempLink.click();
+                            document.body.removeChild(tempLink);
+                        } else {
+                            window.open(dataObject.href, '_blank');
+                        }
                     }
                 });
             }
