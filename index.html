@@ -77,13 +77,10 @@
     <!-- Notification Dialog Structure -->
     <div class="viewer notification-viewer" id="confirm-modal-content">
         <div class="notification-box">
-            <h2 class="notification-title">Tinkercad Access</h2>
-            <p class="notification-message" id="confirm-message-text">
-                Tinkercad requires a free account to ensure projects are visible. Log in to the website to view the
-                projects.
-            </p>
+            <!-- These elements will be dynamically populated by app.js -->
+            <h2 class="notification-title" id="notification-title"></h2>
+            <p class="notification-message" id="confirm-message-text"></p>
             <div class="notification-actions">
-                <!-- Only one button remains -->
                 <button id="confirm-ok" class="action-btn ok-btn">Continue to Site</button>
             </div>
         </div>
