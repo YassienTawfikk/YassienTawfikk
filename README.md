@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2000&pause=1500&color=6dbac6&center=true&vCenter=true&width=700&lines=Hey,+I'm+Yassien+Tawfik!;%C2%A0AI+Engineer+%7C+Computer+Vision+%7C+Biomedical+AI;Building+Intelligent+Pipelines+for+Real+World+Impact&repeat=true" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2000&pause=1500&color=6dbac6&center=true&vCenter=true&width=700&lines=Hey,+I'm+Yassien+Tawfik!;%C2%A0AI+Engineer+%7C+Computer+Vision+%7C+Biomedical+AI;Building+Intelligent+Pipelines+for+Real+World+Impact" />
 
 
 <img src="https://user-images.githubusercontent.com/74038190/212749168-86d6c7ab-98da-409b-998f-c5b74721badd.gif" height="400" width="400">
