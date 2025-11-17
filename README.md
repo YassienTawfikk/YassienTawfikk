@@ -30,3 +30,15 @@
   </tr>
 </table>
 
+---
+
+### More Projects
+
+I build **more projects than GitHub lets me pin**—from computer vision & biomedical AI apps  
+to DSP systems, MRI simulators, and embedded STM32 projects.  
+
+Feel free to **explore my full repository list** to see everything I’ve been working on:  
+
+<a href="https://github.com/YassienTawfikk?tab=repositories">
+  <img src="https://img.shields.io/badge/Browse_All_Projects-6dbac6?style=for-the-badge&logo=github&logoColor=white" />
+</a>
