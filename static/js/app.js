@@ -118,6 +118,7 @@ fetch('static/data/data.json')
 
         const iconMap = {
             'CV (PDF)': 'fas fa-file-pdf',
+            Portfolio: 'fas fa-briefcase',
             GitHub: 'fab fa-github',
             LinkedIn: 'fab fa-linkedin',
             LeetCode: 'fas fa-code',
@@ -275,31 +276,6 @@ fetch('static/data/data.json')
         });
     });
 
-// ==============================
-// 5. EMAILJS CONTACT FORM SUBMISSION
-// ==============================
-document.getElementById('contact-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const email = e.target.from_email.value.trim();
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        toast('Invalid email address');
-        return;
-    }
-
-    try {
-        await emailjs.send('service_2k9xyz', 'template_d4ryemm', {from_email: email});
-        await emailjs.send('service_2k9xyz', 'template_bir13y8', {
-            from_email: email,
-            to_email: email
-        });
-        toast("Thanks! I'll reach out soon.");
-        e.target.reset();
-    } catch (err) {
-        console.error(err);
-        toast('Error — please try again');
-    }
-});
 
 // ==============================
 // 6. CAIRO CLOCK BADGE

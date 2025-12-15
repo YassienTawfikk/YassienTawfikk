@@ -5,6 +5,9 @@
     "CV (PDF)": {
       "href": "static/docs/Yassien%20Tawfik%20-%20CV.pdf"
     },
+    "Portfolio": {
+      "href": "https://ytawfik-portfolio.vercel.app"
+    },
     "GitHub": {
       "href": "https://github.com/YassienTawfikk"
     },
