@@ -32,13 +32,22 @@
 
 ---
 
-### More Projects
+### 🌐 My Portfolio
 
-I build **more projects than GitHub lets me pin**—from computer vision & biomedical AI apps  
-to DSP systems, MRI simulators, and embedded STM32 projects.  
+My GitHub hosts the code, but **my portfolio tells the story**. 
 
-Feel free to **explore my full repository list** to see everything I’ve been working on:  
+Visit my site for detailed case studies on my work in **Biomedical AI, Computer Vision, and DSP**—including live demos and full project breakdowns that go beyond the repo.
 
-<a href="https://github.com/YassienTawfikk?tab=repositories">
-  <img src="https://img.shields.io/badge/Browse_All_Projects-6dbac6?style=for-the-badge&logo=github&logoColor=white" />
-</a>
+<div align="center">
+
+  <a href="https://ytawfik-portfolio.netlify.app">
+    <img src="https://res.cloudinary.com/dzn4mqtzg/image/upload/v1766512255/Yassien_Portfolio_Poster_c8nips.webp" width="400" />
+  </a>
+
+  <br>
+
+  <a href="https://ytawfik-portfolio.netlify.app">
+    <img src="https://img.shields.io/badge/Visit_My_Portfolio-6dbac6?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  </a>
+
+</div>
