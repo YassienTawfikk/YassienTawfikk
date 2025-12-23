@@ -12,7 +12,9 @@
     --badge: #2b2b2b;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -253,10 +255,15 @@ h1 {
 /* ==============================
    5. MODAL SYSTEM
    ============================== */
-#cv-modal {
+/* ==============================
+   5. MODAL SYSTEM
+   ============================== */
+#cv-modal,
+#resume-modal,
+#notification-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.85);
     display: none;
     align-items: center;
     justify-content: center;
@@ -265,10 +272,32 @@ h1 {
     transition: opacity 0.3s ease;
 }
 
-#cv-modal.show {
+#cv-modal.show,
+#resume-modal.show,
+#notification-modal.show {
     display: flex;
     opacity: 1;
 }
+
+#resume-modal .modal-dialog {
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: auto;
+    /* Ensure centering works even if flex parent has issues */
+}
+
+
+
+/* Ensure inline styles from HTML are respected or overridden if needed */
+/* But strictly speaking, the HTML has style="..." so that takes precedence.
+   However, we need to ensure the container behaves nicely. */
 
 #cv-modal .viewer {
     background: var(--card);
@@ -382,9 +411,12 @@ h1 {
    6. ANIMATIONS AND MEDIA QUERIES
    ============================== */
 @keyframes pulseClock {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.85;
     }
+
     50% {
         opacity: 1;
     }
@@ -416,4 +448,24 @@ h1 {
         width: 100%;
         max-width: 100%;
     }
+}
+
+/* ==============================
+   PDF JS TEXT LAYER FIX
+   ============================== */
+.textLayer {
+    opacity: 0 !important;
+    mix-blend-mode: multiply;
+    line-height: 1.0;
+    pointer-events: auto;
+    /* Allow text selection */
+}
+
+/* ==============================
+   ZOOM WRAPPER CENTERING
+   ============================== */
+#zoom-wrapper {
+    margin: 0 auto;
+    position: relative;
+    transform-origin: top center;
 }

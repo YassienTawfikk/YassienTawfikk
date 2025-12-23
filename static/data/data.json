@@ -3,10 +3,10 @@
   "tagline": "Biomedical AI Engineer | Deep Learning, Computer Vision & AI-driven Healthcare.",
   "links": {
     "CV (PDF)": {
-      "href": "https://ytawfik-portfolio.vercel.app/documents/Yassien_Tawfik_CV.pdf"
+      "href": "static/documents/Yassien_Tawfik_CV.pdf"
     },
     "Portfolio": {
-      "href": "https://ytawfik-portfolio.vercel.app"
+      "href": "https://ytawfik-portfolio.netlify.app"
     },
     "GitHub": {
       "href": "https://github.com/YassienTawfikk"
@@ -23,7 +23,7 @@
       "href": "https://leetcode.com/u/YassienTawfik/"
     },
     "Certificates": {
-      "href": "https://ytawfik-portfolio.vercel.app/credentials"
+      "href": "https://ytawfik-portfolio.netlify.app/credentials"
     },
     "Email": {
       "copyText": "Yassien.m.m.tawfik@gmail.com"

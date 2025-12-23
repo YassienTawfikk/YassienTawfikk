@@ -41,6 +41,11 @@
 
     <!-- Plausible Analytics -->
     <script defer data-domain="yassien-tawfik-linkhub.vercel.app" src="https://plausible.io/js/script.js"></script>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
 </head>
 <body>
 <main class="container" role="main">
@@ -56,16 +61,35 @@
     <footer class="footer"><span id="clock" class="clock" aria-label="Local time"></span></footer>
 </main>
 
-<!-- Modal Container -->
-<div id="cv-modal" class="modal-backdrop">
-    <div class="viewer cv-viewer">
-        <div class="modal-controls">
-            <a class="download-btn" href="#" download target="_blank" rel="noopener">Download</a>
+<!-- Resume Modal -->
+<div class="modal fade gallery-modal" id="resume-modal" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="background: transparent; border: none;">
+            <div class="modal-header" style="background: #1e1e1e; border: none; padding: 15px 20px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center;">
+                <h5 class="modal-title" style="color: white; margin: 0;">Résumé</h5>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <a id="download-cv-btn" href="#" download target="_blank" title="Download PDF" style="color: white; font-size: 1.2rem;">
+                        <i class="fas fa-download"></i>
+                    </a>
+                    <button type="button" class="close-modal-btn" aria-label="Close" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 0; overflow: hidden; background: #525659; height: 80vh; border-radius: 0 0 8px 8px; position: relative;">
+                <div id="pdf-container" style="overflow: auto; height: 100%; position: relative; touch-action: pan-x pan-y; display: flex; align-items: flex-start; justify-content: center;">
+                    <div id="zoom-wrapper" style="width: 100%; padding: 20px; box-sizing: border-box; transform-origin: top center;">
+                        <!-- Pages will be injected here -->
+                    </div>
+                </div>
+                 <p id="pdf-fallback" style="text-align: center; padding: 20px; display: none; color: white;">
+                    Your browser does not support PDF viewing. <a href="#" class="fallback-link" download target="_blank" style="color: #4da3ff;">Download the PDF</a> to view it.
+                 </p>
+            </div>
         </div>
-        <iframe title="CV PDF Viewer"></iframe>
     </div>
+</div>
 
-    <!-- Notification Dialog Structure -->
+<!-- Notification Dialog Structure -->
+<div id="notification-modal" class="modal-backdrop">
     <div class="viewer notification-viewer" id="confirm-modal-content">
         <div class="notification-box">
             <h2 class="notification-title" id="notification-title"></h2>
@@ -77,6 +101,12 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+    var pdfjsLib = window.pdfjsLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
+<script src="static/js/pdf_viewer.js"></script>
 <script src="static/js/app.js"></script>
 </body>
 </html>
