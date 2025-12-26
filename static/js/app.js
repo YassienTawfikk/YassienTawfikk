@@ -169,7 +169,7 @@ function initApp() {
                 LinkedIn: 'fab fa-linkedin',
                 LeetCode: 'fas fa-code',
                 Tinkercad: 'fas fa-cogs',
-                Certificates: 'fab fa-google-drive',
+                Certificates: 'fa-solid fa-scroll social-icons',
                 Email: 'fas fa-envelope',
                 Phone: 'fas fa-phone'
             };
