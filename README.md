@@ -46,7 +46,7 @@ Visit my site for detailed case studies on my work in **Biomedical AI, Computer 
 
   <br>
 
-  <a href="https://ytawfik-portfolio.netlify.app">
+  <a href="https://ytawfik-portfolio.vercel.app">
     <img src="https://img.shields.io/badge/Visit_My_Portfolio-6dbac6?style=for-the-badge&logo=googlechrome&logoColor=white" />
   </a>
 
