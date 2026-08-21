@@ -40,7 +40,7 @@ Visit my site for detailed case studies on my work in **Biomedical AI, Computer 
 
 <div align="center">
 
-  <a href="https://ytawfik-portfolio.netlify.app">
+  <a href="https://ytawfik-portfolio.vercel.app">
     <img src="https://res.cloudinary.com/dzn4mqtzg/image/upload/v1766512255/Yassien_Portfolio_Poster_c8nips.webp" width="400" />
   </a>
 
